@@ -2,6 +2,8 @@ package cn.elseblogger.coolweatherplus.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +11,7 @@ import org.json.JSONObject;
 import cn.elseblogger.coolweatherplus.db.City;
 import cn.elseblogger.coolweatherplus.db.County;
 import cn.elseblogger.coolweatherplus.db.Province;
+import cn.elseblogger.coolweatherplus.gson.Weather;
 
 /**
  * Created by Else on 2017/10/16.
@@ -76,5 +79,19 @@ public class Utility {
             }
         }
         return false;
+    }
+
+
+    public static Weather handleWeatherResponse(String response){
+        try {
+                JSONObject jsonObject = new JSONObject(response);
+                JSONArray  jsonArray  = jsonObject.getJSONArray("HeWeather");
+                String weatherContent = jsonArray.getJSONObject(0).toString();
+                return new Gson().fromJson(weatherContent,Weather.class);
+        }catch (Exception e){
+            /*who TM care ?*/
+            e.printStackTrace();
+        }
+        return null;
     }
 }
