@@ -1,5 +1,6 @@
 package cn.elseblogger.coolweatherplus;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,6 +25,7 @@ import java.io.IOException;
 
 import cn.elseblogger.coolweatherplus.gson.Forecast;
 import cn.elseblogger.coolweatherplus.gson.Weather;
+import cn.elseblogger.coolweatherplus.service.AutoUpdateService;
 import cn.elseblogger.coolweatherplus.util.HttpUtil;
 import cn.elseblogger.coolweatherplus.util.Utility;
 import okhttp3.Call;
@@ -179,6 +181,8 @@ public class activity_weather extends AppCompatActivity {
         carwashText.setText(carwash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
 
